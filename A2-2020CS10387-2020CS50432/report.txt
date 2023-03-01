@@ -1,0 +1,50 @@
+﻿Monu                                             EntryNo.:2020CS50432
+Simran Mahawar                                   EntryNo.:2020CS10387
+
+This assignment concerns implementing an AI agent for playing a two-player game, and is intended to give exposure to planning in the presence of an adversary with a budget on the computation allowed before performing a decision (move).
+ExtendedConnect4 Game
+Board Size - the board size is m x n where the game board dimensions can vary. However, the number of columns (n) will always be even. There are two coloured sets of tokens. Each player is assigned a colour.
+Moves
+Standard Moves.  - Player can insert tokens of their own colour in any column on the board. The tokens drop in the target column and occupy a position at the base or on top of the highest token already present in that column.
+PopOut Moves. - PopOut move removes the bottom-most token and shifts all other tokens in that column by one position downwards. Further, player one can take an PopOut move on even numbered columns (0, 2, 4, ).
+Time Budget for a Move. Each player is given a fixed time to return the next move (or action).
+Game End
+The game continues till there is a stalemate is reached, i.e., there are no possible moves left for any player.
+Scoring
+Scores are awarded when 2, 3, and 4 tokens, with the same colour, appear consecutively along a direction. The scores are computed along the horizontal, the vertical, and the two diagonal directions independently and added. A player gets 2 points for every 2 consecutive tokens, 5 points for every 3 consecutive tokens, and 20 points for every 4 consecutive tokens.
+
+What we implemented?
+Part A. Playing Against a Random Agent
+Implemented an agent based on expectimax that can play against the random agent. Assuming that the other player is not playing optimally and he is playing randomly. This slalgorithm makes a tree. Value of leaf node is calculated by get_points function. Value of max node is the maximum of value of its child nodes, and value of random player node will be average of its child nodes .
+Part B. Playing Against an Adversarial Agent
+Implemented an agent that can play against an adversary using minimax search and alpha-beta pruning. Minimax algorithm that is used in decision making and game theory to find the optimal move for a player, assuming that your opponent also plays optimally. 
+In Minimax the two players are called maximizer and minimizer. The maximizer tries to get the highest score possible while the minimizer tries to do the opposite and get the lowest score possible.
+Every board state has a value associated with it. Value of leaf node is calculated by get_points function. Value of max node is the maximum of value of its child nodes, and value of min node is minimum value of its child nodes .
+
+We used iterative deepening for both parts.
+
+The branching factor for any state with n valid moves is O(n). The maximum possible value of n is 15.
+Branching factor **b=O(n)**.
+
+
+Reasons of choosing iterative deeping
+
+We are not sure about maximum depth that the tree can reach. So we are using iterative deeping to iteratively increase the depth by 1 if sufficient time is remaining.
+
+Some observations:
+Maximum depth is lower for states with more number of valid actions. 
+If more time is given, maximum depth will be more and AI will take better decision.
+
+Our Implementation:
+Overview of Helper Functions we used:
+Make_move - This function returns new matrix/board after making a move
+Make_child - This function takes a move as an argument and returns the new state after making the move.
+Minimax - This function takes a state and maximum depth as argument and returns the score of that state after making minmax tree. It also uses alpha beta pruning.
+Expectimax - This function takes a state and maximum depth as argument and returns the score of that state after making expectimax tree. 
+
+Overview of main functions:
+Get_intelligent_move - It implements iterative deeping to decide the maximum depth according to the given input time and uses minimax function. It returns the best action to win the game.
+
+Get_expectimus_move - It also implements iterative deeping to decide the maximum depth. Uses expectimax function after deciding the maximum depth according to given input time.
+
+

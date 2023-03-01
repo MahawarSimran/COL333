@@ -1,0 +1,50 @@
+﻿Monu                  EntryNo.:2020CS50432
+Simran Mahawar        EntryNo.:2020CS10387
+
+
+This assignment concerns probabilistic reasoning to estimate a quantity of interest using noisy observations acquired over time. We consider the example of an intelligent road vehicle equipped with a (noisy) sensor that needs to locate other vehicles in order to plan a safe path to its goal.
+
+
+
+
+What we implemented?
+
+
+### Part A.  Estimation
+
+
+Implemented particle filtering algorithm (called Estimator) to estimate the belief over the position of each StdCar(s) from the collected measurement corresponding to that car. We analysed the state space, the transition and the observation models. 
+Our goal was to implement a probabilistic tracker (running on the AutoCar) that estimates a probability distribution (a belief) over the possible location of StdCar(s) from sensor data collected from particle filtering.
+
+
+Helper Functions used:
+Allotpaarticles  => This functions randomly allot particles in an area according to the weight.
+Changeparticles => This function uses allotparticles function and allot more particles in the region where moving car is detected.
+Changeparticlesmoving =>This function uses allotparticles function and allot particles according to the direction is which car is moving.
+Setbelief => changes belief  of every tile(Pos) and after this it normalises the 
+
+
+Approach
+* First of all, we made a dictionary calles transProbDict which will store the probability of transition froom a previous tile to new tile. Then We are allotting randomly particles to the whole area.
+* According to the data collected, we are allotting particles to the areas where moving car is detected by using the function allotparticles.
+* Then we are setting new belief, and normalising.
+* We are also using the pdf function from util.py  to compute the chances of car present at a position. 
+
+
+
+
+
+
+### Part B: Planning
+
+
+We now turn our attention to driving the AutoCar making use of the tracking ability developed in Part A. Our goal is to use this information to plan a safe path without colliding with any of the other cars in the environment or the walls.  Implemented planner (called *Intelligent Driver*) for safely driving the AutoCar. The planner will determine which grid cell the AutoCar should move into next. Once the car decides the grid cell it is aiming for, the car will turn and start moving towards the grid cell (motion will be simulated).
+
+
+
+
+Approach
+* We are modifying belief by seeing other moving cars, in which direction they are moving and also we are checking parked cars.
+* Then finding adjacent nodes and removing those nodes in which we can’t go. Checking all next position reachable.
+* We will stop when final goal is reached.
+* We are also moving the car randomly with a very less probability.
